@@ -17,11 +17,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  //Creates a new ExampleSubsystem.//
 public class ShooterSubsystem extends SubsystemBase {
 
-  private final TalonFX shooterMotor1 = new TalonFX(//which physical motor it is);
-  private final TalonFX shooterMotor2 = new TalonFX(//which physical motor it is);
+  private final TalonFX shooterMotor1 = new TalonFX(0);
+  private final TalonFX shooterMotor2 = new TalonFX(1);
 
   public ShooterSubsystem() {
-  
+    shooterMotor1.enableVoltageCompensation(true);
+    shooterMotor1.configVoltageCompSaturation(12.0, 30);
+    shooterMotor1.configPeakOutputForward(Constants.SHOOTER_MAX_OUTPUT);
+    shooterMotor1.setNeutralMode(NeutralMode.Coast);
+    shooterMotor1.setInverted(true);
+
+    shooterMotor2.follow(shooterMotor1);
+    shooterMotor2.setNeutralMode(NeutralMode.Coast);
+    shooterMotor2.configVoltageCompSaturation(12.0, 30);
+    shooterMotor2.enableVoltageCompensation(true);
   }
   
   private double speed = 0;
@@ -42,9 +51,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
     this.speed = speed;
 
-    shooterMotor1.set(ControlMode.Velocity, speed)
-    shooterMotor2.set(ControlMode.Velocity, speed)
+    shooterMotor1.set(ControlMode.Velocity, speed);
 
+  }
+
+  public void stop() {
+    //set motor to 0
+    shooterMotor1.set(ControlMode.PercentOutput, 0.0);
+    speed = 0;
   }
 
   @Override
@@ -58,4 +72,4 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 }
 
-//Elizabeth and Jordan
+//Elizabeth and Jo(e)rdan
