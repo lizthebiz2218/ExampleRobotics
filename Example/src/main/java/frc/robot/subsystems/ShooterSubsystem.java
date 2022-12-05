@@ -21,16 +21,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private final TalonFX shooterMotor2 = new TalonFX(1);
 
   public ShooterSubsystem() {
-    shooterMotor1.enableVoltageCompensation(true);
-    shooterMotor1.configVoltageCompSaturation(12.0, 30);
-    shooterMotor1.configPeakOutputForward(Constants.SHOOTER_MAX_OUTPUT);
-    shooterMotor1.setNeutralMode(NeutralMode.Coast);
-    shooterMotor1.setInverted(true);
-
     shooterMotor2.follow(shooterMotor1);
-    shooterMotor2.setNeutralMode(NeutralMode.Coast);
-    shooterMotor2.configVoltageCompSaturation(12.0, 30);
-    shooterMotor2.enableVoltageCompensation(true);
   }
   
   private double speed = 0;
