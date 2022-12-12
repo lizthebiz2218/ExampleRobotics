@@ -19,14 +19,23 @@ public class ShooterSubsystem extends SubsystemBase {
 
   private final TalonFX shooterMotor1 = new TalonFX(0);
   private final TalonFX shooterMotor2 = new TalonFX(1);
+  
+  public DifferentialDrive drive = new DifferentialDrive(shooterMotor1, shooterMotor2);
+
+  public static synchronized ShooterSubsystem getInstance() {
+    if (instance == null) {
+      instance = new ShooterSubsystem();
+    }
+
+    return instance;
+  }
+
+  private double speed = 0;
 
   public ShooterSubsystem() {
     shooterMotor1.setInverted(true);
     shooterMotor2.follow(shooterMotor1);
   }
-  
-  private double speed = 0;
-
   
   //public void getShooterSpeed(currentShooterSpeed, double speed) {
     //int currentSpeed = 50;
@@ -40,13 +49,13 @@ public class ShooterSubsystem extends SubsystemBase {
 //  }
 
   public void shoot(double speed) {
-
     this.speed = speed;
-
     shooterMotor1.set(ControlMode.Velocity, speed);
-
   }
 
+  public void eject() {
+    shooterMotor1.set(ControlMode.Velocity, 3000);
+  }
   public void stop() {
     //set motor to 0
     shooterMotor1.set(ControlMode.PercentOutput, 0.0);
@@ -55,6 +64,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // 
     // This method will be called once per scheduler run
   }
 
