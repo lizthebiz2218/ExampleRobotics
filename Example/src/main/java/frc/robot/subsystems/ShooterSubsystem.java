@@ -33,8 +33,13 @@ public class ShooterSubsystem extends SubsystemBase {
   private double speed = 0;
 
   public ShooterSubsystem() {
+    shooterMotor1.enableVoltageCompensation(true);
+    shooterMotor1.configVoltageCompSaturation(12.0, 30);
     shooterMotor1.setInverted(true);
+    shooterMotor1.
+
     shooterMotor2.follow(shooterMotor1);
+    shooterMotor2.enableVoltageCompensation(true);
   }
   
   //public void getShooterSpeed(currentShooterSpeed, double speed) {
