@@ -21,6 +21,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private final TalonFX shooterMotor2 = new TalonFX(1);
 
   public ShooterSubsystem() {
+    shooterMotor1.setInverted(true);
     shooterMotor2.follow(shooterMotor1);
   }
   
