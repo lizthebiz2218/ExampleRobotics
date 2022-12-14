@@ -52,7 +52,11 @@ public class ShooterSubsystem extends SubsystemBase {
       
 //    }
 //  }
-
+  public void layup() {
+    speed = 2;
+    shooterMotor1.set(ControlMode.Velocity, speed);
+  }
+  
   public void shoot(double speed) {
     this.speed = speed;
     shooterMotor1.set(ControlMode.Velocity, speed);
